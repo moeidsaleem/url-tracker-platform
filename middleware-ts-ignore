@@ -1,0 +1,41 @@
+// import { NextResponse } from 'next/server';
+// import type { NextRequest } from 'next/server';
+// import { database } from "@/lib/firebase";
+// import { ref, get } from "firebase/database";
+
+// export async function middleware(request: NextRequest) {
+//   const path = request.nextUrl.pathname;
+
+//   if (path.startsWith('/s/')) {
+//     const code = path.split('/')[2];
+    
+//     if (code) {
+//       try {
+//         const shortUrlRef = ref(database, `shortUrls/${code}`);
+//         const snapshot = await get(shortUrlRef);
+        
+//         if (snapshot.exists()) {
+//           const { linkId } = snapshot.val();
+//           return NextResponse.redirect(new URL(`/track?id=${linkId}`, request.url));
+//         } else {
+//           // If the short URL doesn't exist, redirect to 404
+//           return NextResponse.rewrite(new URL('/not-found', request.url));
+//         }
+//       } catch (error) {
+//         console.error("Error fetching short URL:", error);
+//         // For other errors, redirect to the general error page
+//         return NextResponse.rewrite(new URL('/error', request.url));
+//       }
+//     }
+    
+//     // If no code is provided, redirect to 404
+//     return NextResponse.rewrite(new URL('/not-found', request.url));
+//   }
+
+//   // For all other routes, continue with the request
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: '/s/:code*',
+// };
