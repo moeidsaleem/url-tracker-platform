@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Chaikh - Location Tracker Platform",
+  title: "GoTrackerr - Location Tracker Platform",
   description: "Track your location and share it with your friends and family.",
 };
 
