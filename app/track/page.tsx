@@ -26,7 +26,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: shareLink?.title || "Live Location",
       description: shareLink?.description || "Share your live location.",
-      images: [shareLink?.imageUrl || "https://cdn-icons-png.flaticon.com/512/174/174855.png"],
+      images: [shareLink?.imageUrl || "/assets/images/instagram.png"],
     },
   }
 }
