@@ -20,7 +20,10 @@ export async function generateMetadata(
     openGraph: {
       title: shareLink?.title || "Live Location",
       description: shareLink?.description || "Share your live location.",
-      images: [{ url: shareLink?.imageUrl || "/assets/images/instagram.png" }],
+      images: [{ url: shareLink?.imageUrl || "/assets/images/instagram.png" },
+   {url: "https://cdn-icons-png.flaticon.com/512/174/174855.png"}
+
+      ],
     },
     twitter: {
       card: 'summary_large_image',
