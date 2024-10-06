@@ -5,11 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { MapPin, Trash, Edit, Globe, User, Link, Smartphone, Monitor, Maximize2, ExternalLink, Clock, RefreshCw, Calendar, Tag } from "lucide-react";
-import Map from "./Map";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast"
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('./Map'), {
+  ssr: false,
+});
+
 import {
   Pagination,
   PaginationContent,

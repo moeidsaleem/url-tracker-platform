@@ -3,8 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { MapPin, Clock, Smartphone, Globe, Languages } from "lucide-react"
 import { useEffect, useState } from "react"
-import LocationMap from "./LocationMap"
 import { getLocationInfo } from "@/lib/utils"
+import dynamic from 'next/dynamic';
+
+const LocationMap = dynamic(() => import('./LocationMap'), {
+  ssr: false,
+});
 
 interface LocationData {
   lat: number

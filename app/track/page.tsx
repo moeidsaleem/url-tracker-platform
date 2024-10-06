@@ -3,7 +3,7 @@ import { database } from "@/lib/firebase";
 import { ref, get } from "firebase/database";
 import { ShareLink } from "@/components/interfaces/sharelink.interface";
 import TrackClient from './TrackClient';
-
+import { Suspense } from 'react';
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }
 ): Promise<Metadata> {
@@ -32,5 +32,9 @@ export async function generateMetadata(
 }
 
 export default function TrackPage() {
-  return <TrackClient />;
+  return(
+    <Suspense fallback={<div>Loading...</div>}>
+      <TrackClient />
+    </Suspense>
+  )
 }

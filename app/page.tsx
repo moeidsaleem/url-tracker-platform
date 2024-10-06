@@ -7,8 +7,12 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { ArrowRight, MapPin, Link as LinkIcon, Users } from 'lucide-react';
 import { database } from "@/lib/firebase";
 import { ref, onValue } from "firebase/database";
-import Map from "@/components/Map";
 import { Location } from "@/components/interfaces/location.interface";
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+});
 
 export default function Home() {
   const [totalLocations, setTotalLocations] = useState(0);

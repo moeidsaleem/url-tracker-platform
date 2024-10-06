@@ -5,11 +5,15 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { database } from "@/lib/firebase";
 import { ref, set, onValue, update } from "firebase/database";
-import Map from "@/components/Map";
+import dynamic from 'next/dynamic';
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 
 import { Location } from "@/components/interfaces/location.interface";
+
+const Map = dynamic(() => import('@/components/Map'), {
+    ssr: false,
+  });
 
 export default function TrackClient() {
     const [coordinates, setCoordinates] = useState<string>("Fetching location...");
