@@ -7,8 +7,11 @@ import { ref, onValue, query, orderByChild, equalTo } from 'firebase/database';
 import { useToast } from '@/hooks/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { MapPin, Clock, Smartphone, Globe, Languages } from "lucide-react";
 
 import { Location } from '@/components/interfaces/location.interface';
+import { momentAgo } from "@/lib/momentAgo";
+import { handleBrowserUserInfoToReadable } from '@/lib/utils';
 
 const LocationsPage = () => {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -44,7 +47,15 @@ const LocationsPage = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-6">Locations for Share Link</h1>
+      <div className="flex flex-col items-center mb-8">
+        <h1 className="text-3xl font-extrabold mb-4 text-primary">
+          Location Insights
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          Tracking data for share link: 
+          <a href={`/share-links`} className="font-semibold text-green-500">{params.id}</a>
+        </p>
+      </div>
       <Button onClick={() => router.back()} className="mb-4">
         Back
       </Button>
@@ -52,23 +63,57 @@ const LocationsPage = () => {
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
-            <TableHead>Latitude</TableHead>
-            <TableHead>Longitude</TableHead>
-            {/* Add other headers as needed */}
+            <TableHead>Location</TableHead>
+            <TableHead>Time</TableHead>
+            <TableHead>Device</TableHead>
+            <TableHead>Browser</TableHead>
+            <TableHead>Language</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {locations.map((location) => (
             <TableRow key={location.id}>
-              <TableCell>{location.nickname}</TableCell>
-              <TableCell>{location.latitude}</TableCell>
-              <TableCell>{location.longitude}</TableCell>
-              {/* Add other cells as needed */}
+              <TableCell>{location.nickname || 'Anonymous'}</TableCell>
+              <TableCell>
+                <div className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  {location.latitude?.toFixed(4)}, {location.longitude?.toFixed(4)}
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center">
+                  <Clock className="h-4 w-4 mr-2" />
+                  {momentAgo(location.createdAt || 0)}
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center">
+                  <Smartphone className="h-4 w-4 mr-2" />
+                  {location.deviceType || 'Unknown'}
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center">
+                  <Globe className="h-4 w-4 mr-2" />
+                  {handleBrowserUserInfoToReadable(
+                    location.userAgent || 'Unknown'
+                  ).browser}, 
+                 {handleBrowserUserInfoToReadable(
+                    location.userAgent || 'Unknown'
+                  ).language}
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center">
+                  <Languages className="h-4 w-4 mr-2" />
+                  {location.userLanguage || 'Unknown'}
+                </div>
+              </TableCell>
             </TableRow>
           ))}
           {locations.length === 0 && (
             <TableRow>
-              <TableCell colSpan={3} className="text-center">
+              <TableCell colSpan={6} className="text-center">
                 No locations found.
               </TableCell>
             </TableRow>

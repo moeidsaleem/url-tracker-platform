@@ -11,3 +11,14 @@ export async function getLocationInfo(latitude: number, longitude: number) {
   const data = await response.json();
   return data;
 }
+
+export function handleBrowserUserInfoToReadable(userAgent: string) {
+// text manipulation to get browser, os, device, and language
+const browser = userAgent.split(' ')[0];
+const os = userAgent.split(' ')[1];
+const device = userAgent.split(' ')[2];
+const language = userAgent.split(' ')[3];
+return { browser, os, device, language };
+
+}
+

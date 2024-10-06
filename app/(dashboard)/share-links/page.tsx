@@ -37,8 +37,12 @@ const ShareLinksPage = () => {
   const { toast } = useToast();
 const router = useRouter();
 
+// react nextjs get the hostname 
+
 
   useEffect(() => {
+  
+
     const shareLinksRef = ref(database, 'shareLinks');
 
     onValue(shareLinksRef, (snapshot) => {
@@ -151,9 +155,8 @@ const router = useRouter();
       await set(shortUrlRef, { linkId });
       console.log("Short URL generated:", shortCode);
       const hostname = window.location.hostname;
-      const shortUrl = hostname.includes('localhost')
-        ? `http://${hostname}:3000/s/${shortCode}`
-        : `https://${hostname}/s/${shortCode}`;
+      const shortUrl =  `https://${hostname}/s/${shortCode}`;
+      console.log('shortUrl',shortUrl);
 
       await update(ref(database, `shareLinks/${linkId}`), { shortUrl });
 
